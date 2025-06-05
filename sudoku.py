@@ -3,6 +3,7 @@ import time
 class Board:
     def __init__(self, board):
         self.board = board
+        self.err_count = 0
     
     def __str__(self):
         result = ""
@@ -58,8 +59,10 @@ class Board:
                 self.board[row][col] = i 
                    
                 if self.solve():
-                    return True        
+                    return True 
+                       
         self.board[row][col] = 0
+        self.err_count += 1
         return
                 
             
@@ -67,13 +70,13 @@ def play_sudoku(puzzle):
     gameboard = Board(puzzle)
     start = time.perf_counter()
     if gameboard.solve():
-        duration = time.perf_counter() - start
-        print(f"Solved the puzzle. Time: {duration:.3f}s")
+        duration = (time.perf_counter() - start)
+        print(f"Solved the puzzle. Time: {duration:.4f}s Error Count: {gameboard.err_count}")
     else:
         print("Failed to solve puzzle")
     print(gameboard)
         
-puzzle = [
+puzzle_3 = [
   [0, 0, 2, 0, 0, 8, 0, 0, 0],
   [0, 0, 0, 0, 0, 3, 7, 6, 2],
   [4, 3, 0, 0, 0, 0, 8, 0, 0],
@@ -85,6 +88,31 @@ puzzle = [
   [1, 7, 0, 0, 0, 6, 0, 0, 5]
 ]
 
+puzzle_1 = [
+    [4, 8, 0, 3, 2, 0, 7, 5, 6],
+    [9, 7, 0, 8, 5, 0, 1, 2, 4],
+    [0, 2, 6, 7, 1, 4, 0, 3, 8],
+    [7, 6, 0, 4, 0, 8, 3, 1, 2],
+    [1, 0, 0, 0, 0, 0, 4, 8, 5],
+    [0, 4, 0, 5, 3, 1, 0, 0, 9],
+    [0, 0, 0, 6, 0, 5, 8, 4, 0],
+    [8, 1, 0, 9, 0, 2, 0, 0, 3],
+    [6, 0, 0, 1, 8, 0, 2, 9, 0]
+]
+
+puzzle_2 = [
+    [2, 0, 7, 0, 0, 8, 6, 1, 0],
+    [5, 3, 0, 4, 0, 0, 7, 0, 2],
+    [1, 6, 4, 9, 7, 2, 0, 0, 8],
+    [0, 7, 0, 6, 9, 0, 2, 0, 0],
+    [0, 0, 9, 0, 2, 0, 0, 4, 0],
+    [0, 2, 3, 0, 4, 0, 0, 7, 6],
+    [0, 0, 2, 0, 8, 0, 4, 5, 0],
+    [0, 0, 6, 7, 0, 9, 8, 0, 1],
+    [7, 8, 0, 2, 1, 4, 0, 6, 0]
+]
+
+
 
 if __name__ == "__main__":
-    play_sudoku(puzzle)
+    play_sudoku(puzzle_2)
